@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input type="text" id="text">
+        <button id="btn">send</button>
+    </div>
+    <script>
+        const ws = new WebSocket("ws://localhost:2333")
+        ws.onopen = function(){
+            // ws.send("hello")
+            document.getElementById('btn').onclick = function(){
+                ws.send(document.getElementById("text").value)
+            }
+        }
+        ws.onmessage = function(e){
+            console.log(e.data)
+            const p = document.createElement("p")
+            p.innerHTML = e.data
+            document.body.appendChild(p)
+        }
+        
+    </script>
+</body>
+</html>
